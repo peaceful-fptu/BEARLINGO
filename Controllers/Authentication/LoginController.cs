@@ -5,6 +5,7 @@ namespace BEARLINGO.Controllers.Authentication
 {
     public class LoginController : Controller
     {
+
         public IActionResult Index()
         {
             // redict to Views/Authentication/Login.cshtml
