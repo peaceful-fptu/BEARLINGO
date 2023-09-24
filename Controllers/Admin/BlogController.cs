@@ -14,18 +14,29 @@ namespace BEARLINGO.Controllers.Admin
             }
             return View();
         }
+        
+        public IActionResult addBlog() { return View(); }   
 
         [HttpPost]
         public IActionResult addBlog(Blog blog)
         {
             using (BearlingoContext ctx = new BearlingoContext())
             {
-                int IDQTV = (int)HttpContext.Session.GetInt32("IDQTV");
-                blog.Idqtv = IDQTV;
-                ctx.Blogs.Add(blog);
-                ctx.SaveChanges();  
+                Blog checkBlog = ctx.Blogs.FirstOrDefault(bl => bl.Idblog == blog.Idblog);
+                if(checkBlog == null) {
+                    int IDQTV = (int)HttpContext.Session.GetInt32("IDQTV");
+                    blog.Idqtv = IDQTV;
+                    ctx.Blogs.Add(blog);
+                    ctx.SaveChanges();
+                    return RedirectToAction("BlogManage");
+                }else
+                {
+                    String errorMessage = "Blog is already existed!";
+                    ViewBag.message = errorMessage;
+                    return View();
+                }            
             }
-            return View("Blog");
+      
         }
 
         public IActionResult deleteBlog(int id)
