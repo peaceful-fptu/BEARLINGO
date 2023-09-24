@@ -3,3 +3,8 @@
 *@
 @{
 }
+
+@foreach (var item in ViewData["listChuDe"] as List<ChuDeNguPhap>)
+{
+    <h5>@item.TenNguPhap</h5><br/>
+}
