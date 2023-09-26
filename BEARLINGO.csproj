@@ -7,6 +7,18 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Content Remove="Views\Authentication\forgotpass.cshtml" />
+    <Content Remove="Views\Authentication\Signup.cshtml" />
+    <Content Remove="Views\Home\forgetpass.cshtml" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="Views\Authentication\Forgotpass.cshtml" />
+    <None Include="Views\Authentication\Forgetpass.cshtml" />
+    <None Include="Views\Authentication\Signup.cshtml" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="7.0.0">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
