@@ -16,8 +16,10 @@ namespace BEARLINGO.Controllers.Admin
 
         public IActionResult Exam()
         {
-            var listDeThi = this.getDeThi();
+            var listDeThi = this.GetDeThi();
             ViewData["listDeThi"] = listDeThi;
+            var listETS = this.GetETS();
+            ViewData["listETS"] = listETS;
             return View();
         }
 
@@ -28,7 +30,15 @@ namespace BEARLINGO.Controllers.Admin
             return View();
         }
 
-        public List<DeThi> getDeThi()
+        public List<Et> GetETS()
+        {
+            var result = from ets in this._context.Ets
+                         select ets;
+
+            return result.ToList();
+        }
+
+        public List<DeThi> GetDeThi()
         {
             var result = from dethi in this._context.DeThis
                          join qtv in this._context.Qtvs
