@@ -1,6 +1,8 @@
 ﻿<!DOCTYPE html>
 <html>
-
+@{
+    Layout = null;
+}
 <head>
     <link rel="icon" href="images/300775178_401970438737681_809766260095184123_n (1).png">
     <meta content="width=device-width,initial-scale=1.0,user-scalable=no" name="viewport">
@@ -250,7 +252,7 @@
     <main class="p-v-5-m">
         <div class="container m-auto-xs col-4-l col-5-m col-10-xs p-h-6-l">
             <h3 class="heading3 text-center-xs">Log in</h3>
-            <form class="recaptcha-protected password-form" action="/secure/1115529/identity/login/password" accept-charset="UTF-8" method="post">
+            <form class="recaptcha-protected password-form" asp-action="login" asp-controller="Login" accept-charset="UTF-8" method="post">
                 <input name="utf8" type="hidden" value="&#x2713;" /><input type="hidden" name="authenticity_token" value="wLNDCnHSYChcO/mcXFS2/Z3GuYtYMvFAWezXokBbnKNIJx9dJ65kPZbALwjXpSmYc/b31WnKOocZvQXN9ZVMYw==" />
                 <div class="m-b-4-xs">
                     <label class="form-label bodyMain p-b-0-xs m-b-2-xs" for="email">Email</label>
