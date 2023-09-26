@@ -13,7 +13,7 @@ namespace BEARLINGO.Controllers.Admin
             _context = new BearlingoContext();
         }
 
-        public IActionResult Topic()
+        public IActionResult Grammar()
         {
             var listChuDe = this.getChuDe();
             ViewData["listChuDe"] = listChuDe;
@@ -21,7 +21,7 @@ namespace BEARLINGO.Controllers.Admin
         }
 
         [HttpGet]
-        public IActionResult TopicDetail(int idNguPhap)
+        public IActionResult GrammarDetail(int idNguPhap)
         {
             var listNguPhap = this.getNguPhap(idNguPhap);
             ViewData["listNguPhap"] = listNguPhap;
@@ -89,7 +89,7 @@ namespace BEARLINGO.Controllers.Admin
 
                 this._context.ChuDeNguPhaps.Add(chuDeNguPhap);
                 this._context.SaveChanges();
-                return RedirectToAction("Topic", "Grammar");
+                return RedirectToAction("Grammar", "Grammar");
             }
             catch (Exception ex)
             {
@@ -118,7 +118,7 @@ namespace BEARLINGO.Controllers.Admin
                 this._context.NguPhaps.Add(nguPhap);
                 this._context.SaveChanges();
 
-                return RedirectToAction("TopicDetail", "Grammar", new { idNguPhap = idChuDe });
+                return RedirectToAction("GrammarDetail", "Grammar", new { idNguPhap = idChuDe });
             }
             catch (Exception ex)
             {
@@ -150,7 +150,7 @@ namespace BEARLINGO.Controllers.Admin
 
                     transaction.Commit();
 
-                    return RedirectToAction("Topic", "Grammar");
+                    return RedirectToAction("Grammar", "Grammar");
                 }
                 catch (Exception ex)
                 {
@@ -173,7 +173,7 @@ namespace BEARLINGO.Controllers.Admin
                     this._context.SaveChanges();
                 }
 
-                return RedirectToAction("TopicDetail", "Grammar", new { idNguPhap = idNguPhap });
+                return RedirectToAction("GrammarDetail", "Grammar", new { idNguPhap = idNguPhap });
             }
             catch (Exception ex)
             {
@@ -196,7 +196,7 @@ namespace BEARLINGO.Controllers.Admin
                     chuDe.Idqtv = idQtv;
                 }
 
-                return RedirectToAction("Topic", "Grammar");
+                return RedirectToAction("Grammar", "Grammar");
             }
             catch (Exception ex)
             {
@@ -223,7 +223,7 @@ namespace BEARLINGO.Controllers.Admin
                     nguPhap.IdchuDeNguPhap = idChuDe;
                 }
 
-                return RedirectToAction("TopicDetail", "Grammar", new { idNguPhap = idChuDe });
+                return RedirectToAction("GrammarDetail", "Grammar", new { idNguPhap = idChuDe });
             }
             catch (Exception ex)
             {
