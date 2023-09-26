@@ -1,10 +1,213 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
+﻿<!doctype html>
+<html lang="en">
 @{
+    Layout = null;
+    var listChuDe = ViewData["listChuDeNguPhap"] as List<ChuDeNguPhap>;
 }
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <title>Bearlingo</title>
+    <link rel="icon" href="images/300775178_401970438737681_809766260095184123_n (1).png">
+    <script src="https://kit.fontawesome.com/355da00255.js" crossorigin="anonymous"></script>
 
-@foreach (var item in ViewData["listChuDe"] as List<ChuDeNguPhap>)
-{
-    <h5>@item.TenNguPhap</h5><br/>
-}
+    <!-- CSS FILES -->
+    <link rel="preconnect" @Url.Content("https://fonts.googleapis.com")>
+    <link rel="stylesheet" @Url.Content("https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css")>
+    <link rel="preconnect" @Url.Content("https://fonts.gstatic.com") crossorigin>
+    <link rel="stylesheet" @Url.Content("https://fonts.googleapis.com/css2?family=Montserrat:wght@500;600;700&family=Open+Sans&display=swap")>
+    <link href="~/css/bootstrap.min.css" rel="stylesheet">
+    <link href="~/css/bootstrap-icons.css" rel="stylesheet">
+    <link href="~/css/templatemo-topic-listing.css" rel="stylesheet">
+    <!--
+
+    TemplateMo 590 topic listing
+
+    https://templatemo.com/tm-590-topic-listing
+
+    -->
+</head>
+
+<body id="top">
+
+    <main>
+
+        <nav class="navbar navbar-expand-lg" style="background-image: linear-gradient(15deg, #13547a 0%, #80d0c7 100%);">
+            <div class="container">
+                <a class="navbar-brand" href="index.html">
+                    <i class="bi-back"></i>
+                    <span>Bearlingo</span>
+                </a>
+
+                <div class="d-lg-none ms-auto me-4">
+                    <a href="#top" class="navbar-icon bi-person smoothscroll"></a>
+                </div>
+
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+                        aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav ms-lg-5 me-lg-auto">
+                        <li class="nav-item">
+                            <a class="nav-link click-scroll" href="#section_1">Trang chủ</a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a class="nav-link" asp-area="" asp-controller="Exam" asp-action="Exam">Đề thi</a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a class="nav-link" asp-area="" asp-controller="Grammar" asp-action="Grammar">Ngữ Pháp</a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a class="nav-link" asp-area="" asp-controller="Vocabulary" asp-action="Vocabulary">Từ Vựng</a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a class="nav-link click-scroll" href="#section_5">Tips</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link click-scroll" href="#section_6">Blog</a>
+                        </li>
+
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="navbarLightDropdownMenuLink" role="button"
+                               data-bs-toggle="dropdown" aria-expanded="false">Đăng nhập</a>
+
+                            <ul class="dropdown-menu dropdown-menu-light" aria-labelledby="navbarLightDropdownMenuLink">
+                                <li><a class="dropdown-item" asp-area="" asp-controller="Login" asp-action="Index">Login</a></li>
+                                <li><a class="dropdown-item" asp-area="" asp-controller="GoogleLogin" asp-action="Index">Google</a></li>
+                                <li><a class="dropdown-item" asp-area="" asp-controller="FacebookLogin" asp-action="Index">Facebook</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+
+                    <div class="d-none d-lg-block">
+                        <a href="#top" class="navbar-icon bi-person smoothscroll"></a>
+                    </div>
+                </div>
+            </div>
+        </nav>
+
+        <section class="explore-section section-padding" id="section_2">
+            <div class="section-overlay"></div>
+            <div class="container">
+                <div class="row">
+                    <div class="col-12 text-center">
+                        <h2 class="text-white mb-4">Ngữ Pháp</h2>
+                    </div>
+                    <div class="col-lg-10 col-6 mx-auto">
+                        <div class="timeline-container">
+                            <div class="list-progress">
+                                <div class="inner"></div>
+                            </div>
+                            <div class="row">
+                                <div class="col-6">
+                                    <ul style="list-style-type: none;">
+                                        <li style="white-space: nowrap;">
+                                            @foreach (var item in listChuDe)
+                                            {
+                                                <p class="text-white nav-item ">
+                                                    <a class="nav-link " asp-area="" asp-controller="Grammar" asp-action="GrammarDetail" asp-route-id="@item.IdchuDeNguPhap">
+                                                        <i class="fa-solid fa-paw"></i> @item.TenNguPhap
+                                                    </a>
+                                                </p>
+                                            }
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <footer class="site-footer section-padding">
+        <div class="container">
+            <div class="row">
+
+                <div class="col-lg-3 col-12 mb-4 pb-2">
+                    <a class="navbar-brand mb-2" href="index.html">
+                        <i class="bi-back"></i>
+                        <span>Bearlingo</span>
+                    </a>
+                </div>
+
+                <div class="col-lg-3 col-md-4 col-6">
+                    <h6 class="site-footer-title mb-3">Thông tin</h6>
+
+                    <ul class="site-footer-links">
+                        <li class="site-footer-link-item">
+                            <a href="#" class="site-footer-link">Hỗ trợ</a>
+                        </li>
+
+                        <li class="site-footer-link-item">
+                            <a href="#" class="site-footer-link">Hướng dẫn sử dụng</a>
+                        </li>
+
+                        <li class="site-footer-link-item">
+                            <a href="#" class="site-footer-link">Điều Khoản</a>
+                        </li>
+
+                        <li class="site-footer-link-item">
+                            <a href="#" class="site-footer-link">Quyền riêng tư</a>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="col-lg-3 col-md-4 col-6 mb-4 mb-lg-0">
+                    <h6 class="site-footer-title mb-3">Về chúng tôi</h6>
+
+                    <p class="text-white d-flex mb-1">
+                        <a href="tel: 305-240-9671" class="site-footer-link">
+                            Giới thiệu
+                        </a>
+                    </p>
+
+                    <p class="text-white d-flex">
+                        <a href="mailto:info@company.com" class="site-footer-link">
+                            Liên hệ
+                        </a>
+                    </p>
+                </div>
+
+                <div class="col-lg-3 col-md-4 col-12 mt-4 mt-lg-0 ms-auto">
+                    <div class="dropdown">
+                        <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown"
+                                aria-expanded="false">
+                            English
+                        </button>
+
+                        <ul class="dropdown-menu">
+                            <li><button class="dropdown-item" type="button">Thai</button></li>
+
+                            <li><button class="dropdown-item" type="button">Myanmar</button></li>
+
+                            <li><button class="dropdown-item" type="button">Arabic</button></li>
+
+                            <li><button class="dropdown-item" type="button">Viet Nam</button></li>
+                        </ul>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </footer>
+
+    <!-- JAVASCRIPT FILES -->
+    <script src="~/js/jquery.min.js"></script>
+    <script src="~/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/jquery.sticky.js"></script>
+    <script src="~/js/click-scroll.js"></script>
+    <script src="~/js/custom.js"></script>
+
+</body>
+</html>
