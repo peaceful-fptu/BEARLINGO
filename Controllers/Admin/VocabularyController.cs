@@ -14,19 +14,19 @@ namespace BEARLINGO.Controllers.Admin
 
         public IActionResult Vocabulary()
         {
-            var listChuDe = this.getChuDe();
-            ViewData["listChuDe"] = listChuDe;
+            var listChuDe = this.GetChuDe();
+            ViewData["listChuDeTuVung"] = listChuDe;
             return View();
         }
 
         public IActionResult VocabularyDetail(int idChuDe)
         {
-            var listTuVung = this.getTuVung(idChuDe);
+            var listTuVung = this.GetTuVung(idChuDe);
             ViewData["listTuVung"] = listTuVung;
             return View();
         }
 
-        public List<ChuDeTuVung> getChuDe()
+        public List<ChuDeTuVung> GetChuDe()
         {
             var result = from chude in this._context.ChuDeTuVungs
                          join qtv in this._context.Qtvs
@@ -47,7 +47,7 @@ namespace BEARLINGO.Controllers.Admin
             return new List<ChuDeTuVung>();
         }
 
-        public List<TuVung> getTuVung(int idChuDe)
+        public List<TuVung> GetTuVung(int idChuDe)
         {
             var result = from tuvung in this._context.TuVungs
                          join chude in this._context.ChuDeTuVungs

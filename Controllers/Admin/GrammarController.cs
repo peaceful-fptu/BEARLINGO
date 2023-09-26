@@ -15,20 +15,20 @@ namespace BEARLINGO.Controllers.Admin
 
         public IActionResult Grammar()
         {
-            var listChuDe = this.getChuDe();
-            ViewData["listChuDe"] = listChuDe;
+            var listChuDe = this.GetChuDe();
+            ViewData["listChuDeNguPhap"] = listChuDe;
             return View();
         }
 
         [HttpGet]
         public IActionResult GrammarDetail(int idNguPhap)
         {
-            var listNguPhap = this.getNguPhap(idNguPhap);
+            var listNguPhap = this.GetNguPhap(idNguPhap);
             ViewData["listNguPhap"] = listNguPhap;
             return View();
         }
 
-        public List<ChuDeNguPhap> getChuDe()
+        public List<ChuDeNguPhap> GetChuDe()
         {
             var result = from chude in this._context.ChuDeNguPhaps
                          join qtv in this._context.Qtvs
@@ -49,7 +49,7 @@ namespace BEARLINGO.Controllers.Admin
             return new List<ChuDeNguPhap>();
         }
 
-        public List<NguPhap> getNguPhap(int id)
+        public List<NguPhap> GetNguPhap(int id)
         {
             var result = from nguphap in this._context.NguPhaps
                          join chude in this._context.ChuDeNguPhaps
