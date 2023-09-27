@@ -255,10 +255,14 @@
         <div class="container m-auto-xs col-4-l col-5-m col-10-xs p-v-5-xs p-h-7-xs">
             <h3 class="heading4 text-left-xs m-b-1-xs">Reset Password</h3>
             <p class="bodySmall m-t-1-xs m-b-3-xs">Reset your password by providing your account email below.</p>
-            <form class="recaptcha-protected password-form" action="/secure/1115529/identity/forgot_password" accept-charset="UTF-8" method="post"><input name="utf8" type="hidden" value="&#x2713;" /><input type="hidden" name="authenticity_token" value="H/tHbTt2pC6XjHfjJu/5jmUOQcGzjstWu7hkMbLl2aKXbxs6bQqgO113oXetHmbriz4Pn4J2AJH76bZeBysJYg==" />
+            <form class="recaptcha-protected password-form"asp-controller="ForgotPassword" asp-action="ForgotPassword" accept-charset="UTF-8" method="post"><input name="utf8" type="hidden" value="&#x2713;" /><input type="hidden" name="authenticity_token" value="H/tHbTt2pC6XjHfjJu/5jmUOQcGzjstWu7hkMbLl2aKXbxs6bQqgO113oXetHmbriz4Pn4J2AJH76bZeBysJYg==" />
                 <div class="m-b-3-xs">
                     <label class="form-label bodyMain p-b-0-xs m-b-2-xs" for="email">Email</label>
                     <input type="email" name="email" id="email" required="required" autofocus="autofocus" autocomplete="email" class="form-input p-v-1-xs p-l-2-xs p-r-4-xs col-12-xs bodyMain" />
+                    @if(string.IsNullOrEmpty(ViewBag.messageError))
+                    {
+                        <div style="color:red">@ViewBag.messageError</div>
+                    }
                 </div>
                 <div class="m-b-3-xs dsp-flex-xs flex-justify-content-left-xs">
                     <input type="submit" name="commit" value="Next" class="btn-primary button p-v-2-xs p-h-5-xs m-v-3-xs col-5-xs" data-testid="login-button" data-disable-with="Next" />
