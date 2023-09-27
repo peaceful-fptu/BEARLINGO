@@ -65,6 +65,7 @@ namespace BEARLINGO.Controllers.Authentication
 				{
 					var user = new NguoiDung();
 					user.Gmail = email;
+					user.IDDangNhap = 2; // 2 login facebook
 					db.NguoiDungs.Add(user);
 					db.SaveChanges();
 				}

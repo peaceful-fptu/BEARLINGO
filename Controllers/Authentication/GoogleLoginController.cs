@@ -41,6 +41,7 @@ namespace BEARLINGO.Controllers.Authentication
 				{
 					user = new NguoiDung();
 					user.Gmail = emailLogin;
+					user.IDDangNhap = 1; // 1 login google
 					context.NguoiDungs.Add(user);
 					context.SaveChanges();
 				}
