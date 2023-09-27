@@ -11,7 +11,7 @@ namespace BEARLINGO.Controllers.Authentication
 
         public IActionResult ForgotPassword()
         {
-            return View("~/Views/Authentication/Forgotpass.cshtml");
+            return View("~/Views/Authentication/Forgetpass.cshtml");
         }
 
         [HttpPost]
@@ -19,12 +19,12 @@ namespace BEARLINGO.Controllers.Authentication
         {
             using (BearlingoContext ctx = new BearlingoContext())
             {
-                NguoiDung user = ctx.NguoiDungs.FirstOrDefault(u => u.Gmail.Equals(email));
+                var user = ctx.NguoiDungs.FirstOrDefault(u => u.Gmail.Equals(email));
                 if (user == null)
                 {
                     string messageError = "Không tìm thấy tài khoản trùng khớp với email được cung cấp";
                     ViewBag.messageError = messageError;
-                    return View("~/Views/Authentication/Forgot.cshtml");
+                    return View("ConfirmOtp");
                 }
                 else
                 {
@@ -42,7 +42,7 @@ namespace BEARLINGO.Controllers.Authentication
 
         public IActionResult ConfirmOtp()
         {
-            return View();
+            return View("~/Views/Authentication/ConfirmOtp.cshtml");
         }
 
         [HttpPost]

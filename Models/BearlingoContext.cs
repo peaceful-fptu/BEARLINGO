@@ -299,6 +299,7 @@ public partial class BearlingoContext : DbContext
                 .IsUnicode(false);
             entity.Property(e => e.Sdt).HasColumnName("SDT");
             entity.Property(e => e.TenDangNhap).HasMaxLength(255);
+            entity.Property(e => e.IDDangNhap).HasColumnName("IDDangNhap");
         });
 
         modelBuilder.Entity<PhanLoaiL>(entity =>
