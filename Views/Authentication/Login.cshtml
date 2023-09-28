@@ -252,12 +252,12 @@
     <main class="p-v-5-m">
         <div class="container m-auto-xs col-4-l col-5-m col-10-xs p-h-6-l">
             <h3 class="heading3 text-center-xs">Log in</h3>
-            <form class="recaptcha-protected password-form" asp-action="login" asp-controller="Login
-" accept-charset="UTF-8" method="post">
+            <form class="recaptcha-protected password-form" asp-action="Login" asp-controller="Login" accept-charset="UTF-8" method="post">
                 <input name="utf8" type="hidden" value="&#x2713;" /><input type="hidden" name="authenticity_token" value="wLNDCnHSYChcO/mcXFS2/Z3GuYtYMvFAWezXokBbnKNIJx9dJ65kPZbALwjXpSmYc/b31WnKOocZvQXN9ZVMYw==" />
                 <div class="m-b-4-xs">
                     <label class="form-label bodyMain p-b-0-xs m-b-2-xs" for="email">Email</label>
                     <input type="email" name="email" id="email" required="required" autocomplete="email" class="form-input p-v-1-xs p-l-2-xs p-r-4-xs col-12-xs bodyMain" />
+                    <div>@ViewBag.messageErrorEmail</div>
                 </div>
                 <div class="m-b-4-xs">
                     <label class="form-label bodyMain p-b-0-xs m-b-2-xs" for="password">Password</label>
@@ -266,6 +266,7 @@
                         <svg width="16" height="16" class="icon-e" id="icon-e">
                             <use xlink:href="#icon__Eye"></use>
                         </svg>
+                        <div>@ViewBag.messageErrorPassword</div>
                     </div>
                 </div>
                 <div class="dsp-flex-xs m-b-1-xs flex-justify-content-space-between-xs">
