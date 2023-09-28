@@ -35,7 +35,7 @@ namespace BEARLINGO.Controllers.Authentication
 			if (result.Succeeded)
 			{
 				var accessToken = result.Properties.GetTokenValue("access_token");
-				var emailLogin = result.Principal.FindFirst(ClaimTypes.Email).Value;
+				var emailLogin = result?.Principal?.FindFirst(ClaimTypes.Email)?.Value;
 				var user = context.NguoiDungs.FirstOrDefault(x => x.Gmail == emailLogin);
 				if (user == null)
 				{
