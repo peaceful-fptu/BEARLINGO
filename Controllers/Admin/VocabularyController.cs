@@ -19,9 +19,9 @@ namespace BEARLINGO.Controllers.Admin
             return View();
         }
 
-        public IActionResult VocabularyDetail(int idChuDe)
+        public IActionResult VocabularyDetail(int id)
         {
-            var listTuVung = this.GetTuVung(idChuDe);
+            var listTuVung = this.GetTuVung(id);
             ViewData["listTuVung"] = listTuVung;
             return View();
         }
