@@ -13,8 +13,15 @@ namespace BEARLINGO
 			var builder = WebApplication.CreateBuilder(args);
 
 			// Add services to the container.
-			builder.Services.AddControllersWithViews();
-			builder.Services.AddSession();
+			builder.Services.AddControllersWithViews();      
+      builder.Services.AddDistributedMemoryCache();
+			builder.Services.AddSession(options =>
+      {
+        options.IdleTimeout = TimeSpan.FromMinutes(30);
+        options.IOTimeout = TimeSpan.FromSeconds(2);
+        options.Cookie.HttpOnly = true;
+        options.Cookie.IsEssential = true;
+      });
 			builder.Services.AddAuthentication(options =>
 			{
 				options.DefaultScheme = CookieAuthenticationDefaults.AuthenticationScheme;
@@ -37,7 +44,6 @@ namespace BEARLINGO
 				options.ClientSecret = builder.Configuration["Authentication:Facebook:ClientSecret"];
 				options.ClaimActions.MapJsonKey("urn:facebook:picture", "picture", "url");
 				options.CallbackPath = "/facebookcallback";
-
 			});
 
 			var app = builder.Build();

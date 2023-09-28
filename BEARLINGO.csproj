@@ -7,13 +7,13 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Content Remove="Views\Authentication\forgotpass.cshtml" />
+    <Content Remove="Views\Authentication\ConfirmOtp.cshtml" />
     <Content Remove="Views\Authentication\Signup.cshtml" />
     <Content Remove="Views\Home\forgetpass.cshtml" />
   </ItemGroup>
 
   <ItemGroup>
-    <None Include="Views\Authentication\Forgotpass.cshtml" />
+    <None Include="Views\Authentication\ConfirmOtp.cshtml" />
     <None Include="Views\Authentication\Forgetpass.cshtml" />
     <None Include="Views\Authentication\Signup.cshtml" />
   </ItemGroup>

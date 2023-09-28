@@ -1,14 +1,17 @@
 ﻿using BEARLINGO.Models;
 using BEARLINGO.Util;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace BEARLINGO.Controllers.Authentication
 {
     public class ForgotPasswordController : Controller
     {
+        BearlingoContext ctx = new BearlingoContext();
+
         public IActionResult ForgotPassword()
         {
-            return View();
+            return View("~/Views/Authentication/Forgetpass.cshtml");
         }
 
         [HttpPost]
@@ -16,60 +19,62 @@ namespace BEARLINGO.Controllers.Authentication
         {
             using (BearlingoContext ctx = new BearlingoContext())
             {
-                NguoiDung user = ctx.NguoiDungs.FirstOrDefault(u => u.Gmail.Equals(email));
+                var user = ctx.NguoiDungs.FirstOrDefault(u => u.Gmail.Equals(email));
                 if (user == null)
                 {
                     string messageError = "Không tìm thấy tài khoản trùng khớp với email được cung cấp";
-                    return View("ForgotPassword", messageError);
+                    ViewBag.messageError = messageError;
+                    return View("ConfirmOtp");
                 }
                 else
                 {
                     Random rd = new Random();
                     int otpCode = rd.Next(100000, 1000000);
+                    HttpContext.Session.SetSession("otpCode", otpCode.ToString());
+                    HttpContext.Session.SetSession("email", email);
                     string body = "Your reset code is: " + otpCode + "\n Don't let anyone know this code!";
                     MailSender.SendMail(email, "Reset code", body);
                     ViewBag.Email = email;
-                    return View("ConfirmOtp", otpCode.ToString());
+                    return RedirectToAction("ConfirmOtp");
                 }
             }
         }
 
         public IActionResult ConfirmOtp()
         {
-            return View();
+            return View("~/Views/Authentication/ConfirmOtp.cshtml");
         }
 
         [HttpPost]
-        public IActionResult ConfirmOtp(string userCode, string systemCode, string email)
+        public IActionResult ConfirmOtp(string userCode)
         {
-            ViewBag.Email = email;
-            if(userCode.Equals(systemCode))
+            string otpCode = HttpContext.Session.GetSession<string>("otpCode");
+            if (userCode.Equals(otpCode))
             {
-                return View("ResetPassword");
-            }else
+                return RedirectToAction("ChangePassword");
+            }
+            else
             {
                 string messageError = "Mã otp bạn nhập không trùng khớp với mã otp mà hệ thống đã gửi!";
-                return View("ConfirmOtp", messageError);
+                ViewBag.messageError = messageError;
+                return View("ConfirmOtp");
             }
         }
 
-        public IActionResult ResetPassword() 
+        public IActionResult ChangePassword()
         {
             return View();
         }
 
         [HttpPost]
-        public IActionResult ResetPassword(string newPass, string email)
+        public IActionResult ChangePassword(string newPass)
         {
-            using(BearlingoContext ctx = new BearlingoContext())
-            {
-                NguoiDung user = ctx.NguoiDungs.FirstOrDefault(u => u.Gmail.Equals(email));
-                ctx.NguoiDungs.Remove(user);
-                user.MatKhau = newPass;
-                ctx.NguoiDungs.Add(user);
-                ctx.SaveChanges();
-                return RedirectToAction("Login");
-            }
+            string email = HttpContext.Session.GetSession<string>("email");
+            NguoiDung user = ctx.NguoiDungs.FirstOrDefault(u => u.Gmail.Equals(email));
+            user.MatKhau = newPass;
+            ctx.NguoiDungs.Update(user);
+            ctx.SaveChanges();
+            return View("~/Views/Authentication/Login.cshtml");
         }
 
     }

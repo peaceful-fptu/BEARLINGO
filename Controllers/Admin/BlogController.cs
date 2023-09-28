@@ -55,9 +55,7 @@ namespace BEARLINGO.Controllers.Admin
         {
             using (BearlingoContext ctx = new BearlingoContext())
             {
-                Blog oldBlog = ctx.Blogs.FirstOrDefault(bl => bl.Idblog == newBlog.Idblog);
-                ctx.Blogs.Remove(oldBlog);
-                ctx.Blogs.Add(newBlog);
+                ctx.Blogs.Update(newBlog);
                 ctx.SaveChanges();                  
             }
             return View("Blog");
