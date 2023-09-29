@@ -7,7 +7,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Content Remove="Views\Authentication\ConfirmOtp.cshtml" />
     <Content Remove="Views\Authentication\Signup.cshtml" />
     <Content Remove="Views\Home\forgetpass.cshtml" />
   </ItemGroup>

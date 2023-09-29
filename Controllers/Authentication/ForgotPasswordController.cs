@@ -24,7 +24,7 @@ namespace BEARLINGO.Controllers.Authentication
                 {
                     string messageError = "Không tìm thấy tài khoản trùng khớp với email được cung cấp";
                     ViewBag.messageError = messageError;
-                    return View("ConfirmOtp");
+                    return ConfirmOtp();
                 }
                 else
                 {
@@ -35,7 +35,7 @@ namespace BEARLINGO.Controllers.Authentication
                     string body = "Your reset code is: " + otpCode + "\n Don't let anyone know this code!";
                     MailSender.SendMail(email, "Reset code", body);
                     ViewBag.Email = email;
-                    return RedirectToAction("ConfirmOtp");
+                    return View("~/Views/Authentication/ConfirmOtp.cshtml");
                 }
             }
         }

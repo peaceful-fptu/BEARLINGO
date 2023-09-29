@@ -1,6 +1,8 @@
 ﻿using BEARLINGO.Models;
 using Facebook;
+using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Mvc;
+using System.Security.Claims;
 
 namespace BEARLINGO.Controllers.Authentication
 {
@@ -8,78 +10,50 @@ namespace BEARLINGO.Controllers.Authentication
     {
 		private readonly ILogger<HomeController> _logger;
 		private readonly IConfiguration configuration;
+        private readonly BearlingoContext context;
 
-		public FacebookLoginController(ILogger<HomeController> logger, IConfiguration configuration)
+        public FacebookLoginController(ILogger<HomeController> logger, IConfiguration configuration, BearlingoContext context)
+        {
+            _logger = logger;
+            this.configuration = configuration;
+            this.context = context;
+        }
+
+        public ActionResult Index()
 		{
-			_logger = logger;
-			this.configuration = configuration;
-		}
+            var authenticationProperties = new AuthenticationProperties
+            {
+                RedirectUri = Url.Action("FacebookRedirect", "FacebookLogin"),
+            };
+            return Challenge(authenticationProperties, "Facebook");
+        }
 
-		[Route("/Login")]
-		public ActionResult Index()
+		public async Task<ActionResult> FacebookRedirect()
 		{
-			var fb = new FacebookClient();
-			var loginUrl = fb.GetLoginUrl(new
-			{
-				client_id = configuration.GetValue<string>("Authentication:Facebook:ClientId"),
-				client_secret = configuration.GetValue<string>("Authentication:Facebook:ClientSecret"),
-				redirect_uri = RedirectUri.AbsoluteUri,
-				response_type = "code",
-				scope = "email"
-			});
-			ViewBag.Url = loginUrl.AbsoluteUri;
+            var result = await HttpContext.AuthenticateAsync("Facebook");
 
-			return View("~/Views/Authentication/Login.cshtml");
-		}
-		private Uri RedirectUri
-		{
-			get
-			{
-				var uriBuilder = new UriBuilder(Request.Headers["Referer"].ToString());
-				uriBuilder.Query = null;
-				uriBuilder.Fragment = null;
-				uriBuilder.Path = Url.Action("FacebookRedirect");
-				return uriBuilder.Uri;
-			}
-		}
-		public ActionResult FacebookRedirect(string code)
-		{
-			var fb = new FacebookClient();
-			dynamic result = fb.Post("/oauth/access_token", new
-			{
-				client_id = configuration.GetValue<string>("Authentication:Facebook:ClientId"),
-				client_secret = configuration.GetValue<string>("Authentication:Facebook:ClientSecret"),
-				redirect_uri = RedirectUri.AbsoluteUri,
-				code = code
-
-			});
-
-			fb.AccessToken = result.access_token;
-
-			dynamic me = fb.Get("/me?fields=name,email");
-			string email = me.email;
-			using (var db = new BearlingoContext())
-			{
-				var existingUser = db.NguoiDungs.FirstOrDefault(x => x.Gmail == email);
-				if (existingUser == null)
-				{
-					var user = new NguoiDung();
-					user.Gmail = email;
-					user.IDDangNhap = 2; // 2 login facebook
-					db.NguoiDungs.Add(user);
-					db.SaveChanges();
-				}
-				else
-				{
-					HttpContext.Session.SetString("user", existingUser.IdnguoiDung.ToString());
-					// Set session
-					// HttpContext.Session.Get("user", user.TenDangNhap);
-					// Redirect to home page
-					return RedirectToAction("Index", "Home");
-				}
-			}
-
-			return View("Success");
-		}
+            if (result.Succeeded)
+            {
+                var emailLogin = result?.Principal?.FindFirst(ClaimTypes.Email)?.Value;
+                var name = result?.Principal?.FindFirst(ClaimTypes.Name)?.Value;
+                NguoiDung nguoiDung = context.NguoiDungs.Where(n => n.Gmail == emailLogin).SingleOrDefault();
+                if (nguoiDung == null)
+                {
+                    ViewBag.report = "Bạn cần đăng kí tài khoản trước khi sử dụng dịch vụ";
+                    ViewBag.email = emailLogin;
+                    ViewBag.name = name;
+                    return View("~/Views/Authentication/Register.cshtml");
+                }
+                else
+                {
+                    HttpContext.Session.SetInt32("user", nguoiDung.IdnguoiDung);
+                    // Set session
+                    // HttpContext.Session.Get("user", user.TenDangNhap);
+                    // Redirect to home page
+                    return RedirectToAction("Index", "Home");
+                }              
+            }
+            return RedirectToAction("Index");
+        }
 	}
 }
