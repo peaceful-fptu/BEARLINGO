@@ -31,7 +31,6 @@ namespace BEARLINGO.Controllers.Authentication
                         ViewBag.messageErrorUsername = "Tên đăng nhập đã tồn tại!";
                         return View("Index");
                     }
-                    nguoiDung.IDDangNhap = 0;
                     db.NguoiDungs.Add(nguoiDung);
                     db.SaveChanges();
                     return RedirectToAction("Index", "Login");

@@ -126,12 +126,16 @@
     <div class="wrapper">
         <h2>Registration</h2>
         <form asp-action="Register" asp-controller="Register" accept-charset="UTF-8" method="post">
+            @if (ViewBag.report != null)
+            {
+                <div style="color : green">@ViewBag.report</div>
+            }
             <div class="input-box">
-                <input name="TenDangNhap" type="text" placeholder="Enter your name" required>
+                <input name="TenDangNhap" type="text" placeholder="Enter your name" value="@ViewBag.name" required @(ViewBag.name != null? "readonly" : "")>
                 <div>@ViewBag.messageErrorUsername</div>
             </div>
             <div class="input-box">
-                <input name="Gmail" type="text" placeholder="Enter your email" required>
+                <input name="Gmail" type="text" placeholder="Enter your email" value="@ViewBag.email" required @(ViewBag.email != null ? "readonly" : "")>
                 <div>@ViewBag.messageErrorEmail</div>
             </div>
             <div class="input-box">
