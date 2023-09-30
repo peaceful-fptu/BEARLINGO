@@ -12,7 +12,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <None Include="Views\Authentication\ConfirmOtp.cshtml" />
     <None Include="Views\Authentication\Forgetpass.cshtml" />
     <None Include="Views\Authentication\Signup.cshtml" />
   </ItemGroup>
