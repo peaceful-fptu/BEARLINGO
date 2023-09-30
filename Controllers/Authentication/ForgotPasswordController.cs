@@ -76,6 +76,7 @@ namespace BEARLINGO.Controllers.Authentication
             user.MatKhau = newPass;
             ctx.NguoiDungs.Update(user);
             ctx.SaveChanges();
+            MailSender.SendMail(email, "Đổi mật khẩu thành công", "Bạn vừa đổi mật khẩu thành công.Từ lần đăng nhập sau bạn có thể đăng nhập bằng mật khẩu mới này");
             return View("~/Views/Authentication/Login.cshtml");
         }
 

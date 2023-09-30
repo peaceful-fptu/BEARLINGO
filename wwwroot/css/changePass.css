@@ -1,0 +1,150 @@
+/* Font import */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap');
+
+/* Reset default styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Body styles */
+body {
+    background: rgb(46, 169, 174);
+    font-family: 'Poppins', sans-serif;
+}
+
+/* Container styles */
+.container {
+    height: 350px;
+    width: 350px;
+    background: white;
+    border-radius: 5px;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    transition: all .2s;
+}
+
+/* Heading styles */
+.container h1 {
+    white-space: nowrap;
+    font-size: 25px;
+    margin-top: 30px;
+    margin-left: 15px;
+    font-weight: 600;
+}
+
+/* Paragraph styles */
+.container p {
+    color: grey;
+    margin-top: 5px;
+    margin-left: 15px;
+    font-size: 15px;
+}
+
+/* New password section styles */
+.new-password {
+    margin-top: 25px;
+}
+
+/* Heading styles for password sections */
+.new-password h3, .confirm-password h3 {
+    font-size: 13px;
+    color: grey;
+    margin-left: 17px;
+    margin-right: 20px;
+}
+
+/* Input styles for password sections */
+.new-password-input, .confirm-password-input {
+    all: unset;
+    margin-top: 5px;
+    margin-left: 15px;
+    height: 40px;
+    width: 250px;
+    border-radius: 5px;
+    border: 1px solid grey;
+    padding-left: 15px;
+    padding-right: 48px;
+    font-size: 14px;
+}
+
+/* Input focus styles */
+.new-password-input:focus, .confirm-password-input:focus {
+    border-color: black;
+    transition: all .2s;
+}
+
+/* Eye icon styles */
+.fa-eye, .fa-eye-slash {
+    position: absolute;
+    right: 40px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: grey;
+    font-size: 18px;
+    cursor: pointer;
+}
+
+/* Hide eye icon by default */
+.fa-eye-slash {
+    visibility: hidden;
+}
+
+/* Password requirement paragraph styles */
+.new-password p {
+    font-size: 12px;
+    margin-left: 17px;
+}
+
+/* Message styles */
+.message {
+    font-size: 13px;
+    margin-left: 17px;
+    display: none;
+}
+
+/* Reset button styles */
+.reset-button {
+    all: unset;
+    height: 40px;
+    width: 305px;
+    color: white;
+    background: green;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    bottom: 18px;
+    left: 50%;
+    transform: translateX(-50%);
+    border-radius: 5px;
+    cursor: pointer;
+}
+/* New password section styles */
+.new-password {
+    margin-top: 25px;
+}
+
+/* Password input container styles */
+.password-input {
+    position: relative;
+}
+
+/* Eye icon styles */
+.fa-eye, .fa-eye-slash {
+    position: absolute;
+    right: 40px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: grey;
+    font-size: 18px;
+    cursor: pointer;
+}
+
+/* Hide eye icon by default */
+.fa-eye-slash {
+    visibility: hidden;
+}
