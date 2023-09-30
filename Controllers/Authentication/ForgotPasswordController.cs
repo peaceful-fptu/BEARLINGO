@@ -24,7 +24,7 @@ namespace BEARLINGO.Controllers.Authentication
                 {
                     string messageError = "Không tìm thấy tài khoản trùng khớp với email được cung cấp";
                     ViewBag.messageError = messageError;
-                    return View("ConfirmOtp");
+                    return View("~/Views/Authentication/Forgetpass.cshtml");
                 }
                 else
                 {
@@ -35,19 +35,21 @@ namespace BEARLINGO.Controllers.Authentication
                     string body = "Your reset code is: " + otpCode + "\n Don't let anyone know this code!";
                     MailSender.SendMail(email, "Reset code", body);
                     ViewBag.Email = email;
-                    return RedirectToAction("ConfirmOtp");
+                    return View("~/Views/Authentication/ConfirmOtp.cshtml");
                 }
             }
         }
 
+        [HttpGet]
         public IActionResult ConfirmOtp()
         {
             return View("~/Views/Authentication/ConfirmOtp.cshtml");
         }
 
         [HttpPost]
-        public IActionResult ConfirmOtp(string userCode)
+        public IActionResult ConfirmOtp(string number1, string number2, string number3, string number4, string number5, string number6)
         {
+            string userCode = number1 + number2 + number3 + number4 + number5 + number6;
             string otpCode = HttpContext.Session.GetSession<string>("otpCode");
             if (userCode.Equals(otpCode))
             {
@@ -57,13 +59,13 @@ namespace BEARLINGO.Controllers.Authentication
             {
                 string messageError = "Mã otp bạn nhập không trùng khớp với mã otp mà hệ thống đã gửi!";
                 ViewBag.messageError = messageError;
-                return View("ConfirmOtp");
+                return View("~/Views/Authentication/ConfirmOtp.cshtml");
             }
         }
 
         public IActionResult ChangePassword()
         {
-            return View();
+            return View("~/Views/Authentication/ChangePassword.cshtml");
         }
 
         [HttpPost]
