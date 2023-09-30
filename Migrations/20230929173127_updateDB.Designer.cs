@@ -463,6 +463,9 @@ namespace BEARLINGO.Migrations
                         .IsRequired()
                         .HasMaxLength(255)
                         .HasColumnType("nvarchar(255)");
+                    b.Property<int>("IDDangNhap")
+                        .HasColumnType("int")
+                        .HasColumnName("IDDangNhap");
 
                     b.HasKey("IdnguoiDung")
                         .HasName("PK__NguoiDun__FCD7DB0965E4F7E8");

@@ -446,6 +446,8 @@ namespace BEARLINGO.Migrations
                         .IsUnicode(false)
                         .HasColumnType("varchar(255)");
 
+                    b.Property<int>("IDDangNhap")
+                      .HasColumnType("int");
                     b.Property<string>("MatKhau")
                         .IsRequired()
                         .HasMaxLength(255)

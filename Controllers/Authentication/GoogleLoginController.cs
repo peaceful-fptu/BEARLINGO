@@ -8,16 +8,16 @@ namespace BEARLINGO.Controllers.Authentication
 {
     public class GoogleLoginController : Controller
     {
-		private readonly ILogger<HomeController> _logger;
-		private readonly IConfiguration configuration;
-		private readonly BearlingoContext context;
+        private readonly ILogger<HomeController> _logger;
+        private readonly IConfiguration configuration;
+        private readonly BearlingoContext context;
 
-		public GoogleLoginController(ILogger<HomeController> logger, IConfiguration configuration, BearlingoContext context)
-		{
-			_logger = logger;
-			this.configuration = configuration;
-			this.context = context;
-		}
+        public GoogleLoginController(ILogger<HomeController> logger, IConfiguration configuration, BearlingoContext context)
+        {
+            _logger = logger;
+            this.configuration = configuration;
+            this.context = context;
+        }
 
         public IActionResult OnPost()
         {

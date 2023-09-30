@@ -1,5 +1,4 @@
-﻿@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
-@{
+﻿@{
     Layout = null;
 }
 <!DOCTYPE html>
@@ -124,7 +123,7 @@
                 <input type="number" name="number5" disabled />
                 <input type="number" name="number6" disabled />
             </div>
-            @if (string.IsNullOrEmpty(ViewBag.messageError))
+            @if (!string.IsNullOrEmpty(ViewBag.messageError))
             {
                 <div style="color:red">@ViewBag.messageError</div>
             }
