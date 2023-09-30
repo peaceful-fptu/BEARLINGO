@@ -4,6 +4,7 @@ using BEARLINGO.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BEARLINGO.Migrations
 {
     [DbContext(typeof(BearlingoContext))]
-    partial class BearlingoContextModelSnapshot : ModelSnapshot
+    [Migration("20230929173127_updateDB")]
+    partial class updateDB
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -446,8 +449,6 @@ namespace BEARLINGO.Migrations
                         .IsUnicode(false)
                         .HasColumnType("varchar(255)");
 
-                    b.Property<int>("IDDangNhap")
-                      .HasColumnType("int");
                     b.Property<string>("MatKhau")
                         .IsRequired()
                         .HasMaxLength(255)
@@ -462,6 +463,9 @@ namespace BEARLINGO.Migrations
                         .IsRequired()
                         .HasMaxLength(255)
                         .HasColumnType("nvarchar(255)");
+                    b.Property<int>("IDDangNhap")
+                        .HasColumnType("int")
+                        .HasColumnName("IDDangNhap");
 
                     b.HasKey("IdnguoiDung")
                         .HasName("PK__NguoiDun__FCD7DB0965E4F7E8");

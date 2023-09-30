@@ -15,6 +15,5 @@ public partial class NguoiDung
 
     public string? Gmail { get; set; }
     public int? IDDangNhap { get; set; }
-
     public virtual ICollection<BaiLam> BaiLams { get; } = new List<BaiLam>();
 }

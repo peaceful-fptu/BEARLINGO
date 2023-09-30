@@ -24,7 +24,7 @@ namespace BEARLINGO.Controllers.Authentication
                 {
                     string messageError = "Không tìm thấy tài khoản trùng khớp với email được cung cấp";
                     ViewBag.messageError = messageError;
-                    return View("~/Views/Authentication/Forgetpass.cshtml");
+                    return ConfirmOtp();
                 }
                 else
                 {
