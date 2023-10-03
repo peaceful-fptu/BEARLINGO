@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore.Storage;
+using static BEARLINGO.Program;
 
 namespace BEARLINGO.Controllers.Admin
 {
