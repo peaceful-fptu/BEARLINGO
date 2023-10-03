@@ -3,6 +3,7 @@
 @{
     Layout = null;
     var listChuDe = ViewData["listChuDeTuVung"] as List<ChuDeTuVung>;
+    var totalPages = ViewData["totalPages"] as int?;
 }
 <head>
     <meta charset="utf-8">
@@ -75,15 +76,8 @@
                             <a class="nav-link click-scroll" href="#section_6">Blog</a>
                         </li>
 
-                        <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" href="#" id="navbarLightDropdownMenuLink" role="button"
-                               data-bs-toggle="dropdown" aria-expanded="false">Đăng nhập</a>
-
-                            <ul class="dropdown-menu dropdown-menu-light" aria-labelledby="navbarLightDropdownMenuLink">
-                                <li><a class="dropdown-item" asp-area="" asp-controller="Login" asp-action="Index">Login</a></li>
-                                <li><a class="dropdown-item" asp-area="" asp-controller="GoogleLogin" asp-action="Index">Google</a></li>
-                                <li><a class="dropdown-item" asp-area="" asp-controller="FacebookLogin" asp-action="Index">Facebook</a></li>
-                            </ul>
+                        <li class="nav-item">
+                            <a class="nav-link" asp-area="" asp-controller="Login" asp-action="Index" id="navbarLightDropdownMenuLink" role="button">Đăng nhập</a>
                         </li>
                     </ul>
 
@@ -94,36 +88,61 @@
             </div>
         </nav>
 
-        <section class="explore-section section-padding" id="section_2">
-            <div class="section-overlay"></div>
+        <section class="section-padding">
             <div class="container">
                 <div class="row">
-                    <div class="col-12 text-center">
-                        <h2 class="text-white mb-4">Từ Vựng</h2>
+
+                    <div class="col-lg-12 col-12 text-center">
+                        <h3 class="mb-4">Từ Vựng</h3>
                     </div>
-                    <div class="col-lg-10 col-6 mx-auto">
-                        <div class="timeline-container">
-                            <div class="list-progress">
-                                <div class="inner"></div>
-                            </div>
-                            <div class="row">
-                                <div class="col-6">
-                                    <ul style="list-style-type: none;">
-                                        <li style="white-space: nowrap;">
-                                            @foreach (var item in listChuDe)
-                                            {
-                                                <p class="text-white nav-item ">
-                                                    <a class="nav-link " asp-area="" asp-controller="Vocabulary" asp-action="VocabularyDetail" asp-route-id="@item.IdchuDeTuVung">
-                                                        <i class="fa-solid fa-paw"></i> @item.ChuDe
-                                                    </a>
-                                                </p>
-                                            }
-                                        </li>
-                                    </ul>
+
+                    <div class="col-lg-8 col-12 mt-3 mx-auto">
+                        @foreach (var item in listChuDe)
+                        {
+
+                            <div class="custom-block custom-block-topics-listing bg-white shadow-lg mb-5">
+                                <div class="d-flex">
+                                    <img src="images/topics/undraw_Remote_design_team_re_urdx.png" class="custom-block-image img-fluid" alt="">
+
+                                    <div class="custom-block-topics-listing-info d-flex">
+                                        <div>
+                                            <h5 class="mb-2">@item.ChuDe</h5>
+
+                                            <p class="mb-0">Click button below to more information.</p>
+
+                                            <a class="btn custom-btn mt-3 mt-lg-4" asp-controller="Vocabulary" asp-action="VocabularyDetail" asp-route-id="@item.IdchuDeTuVung">Learn More</a>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
+                        }
                     </div>
+
+                    <div class="col-lg-12 col-12">
+                        <nav aria-label="Page navigation example">
+                            <ul class="pagination justify-content-center mb-0">
+                                <li class="page-item">
+                                    <a class="page-link" href="#" aria-label="Previous">
+                                        <span aria-hidden="true">Prev</span>
+                                    </a>
+                                </li>
+
+                                @for (int i = 1; i <= totalPages; i++)
+                                {
+                                    <li class="page-item active" aria-current="page">
+                                        <a class="page-link" asp-controller="Vocabulary" asp-action="Vocabulary" asp-route-num="@i">@i</a>
+                                    </li>
+                                }
+
+                                <li class="page-item">
+                                    <a class="page-link" href="#" aria-label="Next">
+                                        <span aria-hidden="true">Next</span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </nav>
+                    </div>
+
                 </div>
             </div>
         </section>

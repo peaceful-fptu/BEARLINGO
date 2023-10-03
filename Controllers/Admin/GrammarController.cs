@@ -1,8 +1,9 @@
 ﻿using BEARLINGO.Models;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore.Storage;
-using static BEARLINGO.Program;
+using Microsoft.IdentityModel.Tokens;
+using System;
+using System.Drawing.Printing;
 
 namespace BEARLINGO.Controllers.Admin
 {
@@ -15,20 +16,55 @@ namespace BEARLINGO.Controllers.Admin
             _context = new BearlingoContext();
         }
 
-        public IActionResult Grammar()
+        public IActionResult Grammar(string num)
         {
+            int totalPages = 0;
+            int pageSize = 10;
             var listChuDe = this.GetChuDe();
+            totalPages = (listChuDe.Count() % pageSize) > 0 ? (listChuDe.Count() / pageSize) + 1 : (listChuDe.Count() / pageSize);
+            if (!string.IsNullOrEmpty(num))
+            {
+                listChuDe = this.GetChuDe().Skip(pageSize * (Convert.ToInt32(num) - 1)).Take(pageSize).ToList();
+            }
+            else
+            {
+                num = "1";
+                listChuDe = this.GetChuDe().Skip(pageSize * (Convert.ToInt32(num) - 1)).Take(pageSize).ToList();
+            }
+
             ViewData["listChuDeNguPhap"] = listChuDe;
+            ViewData["totalPages"] = totalPages;
             return View();
         }
 
         [HttpGet]
-
         public IActionResult GrammarDetail(int idNguPhap)
         {
             var listNguPhap = this.GetNguPhap(idNguPhap);
             ViewData["listNguPhap"] = listNguPhap;
             return View();
+        }
+
+        [HttpGet]
+        public IActionResult GrammarPaging(string num)
+        {
+            int totalPages = 0;
+            int pageSize = 10;
+            var listChuDe = this.GetChuDe();
+            totalPages = (listChuDe.Count() % pageSize) > 0 ? (listChuDe.Count() / pageSize) + 1 : (listChuDe.Count() / pageSize);
+            if (!string.IsNullOrEmpty(num))
+            {
+                listChuDe = this.GetChuDe().Skip(pageSize * (Convert.ToInt32(num) - 1)).Take(pageSize).ToList();
+            }
+            else
+            {
+                num = "1";
+                listChuDe = this.GetChuDe().Skip(pageSize * (Convert.ToInt32(num) - 1)).Take(pageSize).ToList();
+            }
+
+            ViewData["listChuDeNguPhap"] = listChuDe;
+            ViewData["totalPages"] = totalPages;
+            return View("~/Views/Grammar/Grammar.cshtml");
         }
 
         public List<ChuDeNguPhap> GetChuDe()
@@ -79,7 +115,6 @@ namespace BEARLINGO.Controllers.Admin
         }
 
         [HttpPost]
-        [Authorize(Policy = Roles.Admin)]
         public IActionResult AddChuDe(string tenNguPhap, int stt, int idQtv)
         {
             try
@@ -104,7 +139,6 @@ namespace BEARLINGO.Controllers.Admin
         }
 
         [HttpPost]
-        [Authorize(Policy = Roles.Admin)]
         public IActionResult AddNguPhap(string tieuDe, string cachDung, string cauTruc, string viDu, string boSung, string luuY, int idChuDe)
         {
             try
@@ -134,7 +168,6 @@ namespace BEARLINGO.Controllers.Admin
         }
 
         [HttpGet]
-        [Authorize(Policy = Roles.Admin)]
         public IActionResult DeleteChuDe(int idChuDe)
         {
             var chuDe = this._context.ChuDeNguPhaps.FirstOrDefault(item => item.IdchuDeNguPhap == idChuDe);
@@ -168,7 +201,6 @@ namespace BEARLINGO.Controllers.Admin
         }
 
         [HttpGet]
-        [Authorize(Policy = Roles.Admin)]
         public IActionResult DeleteNguPhap(int idNguPhap)
         {
             var nguPhap = this._context.NguPhaps.FirstOrDefault(item => item.IdnguPhap == idNguPhap);
@@ -191,7 +223,6 @@ namespace BEARLINGO.Controllers.Admin
         }
 
         [HttpPost]
-        [Authorize(Policy = Roles.Admin)]
         public IActionResult UpdateChuDe(int idChuDe, string tenNguPhap, int stt, int idQtv)
         {
             var chuDe = this._context.ChuDeNguPhaps.FirstOrDefault(item => item.IdchuDeNguPhap == idChuDe);
@@ -215,7 +246,6 @@ namespace BEARLINGO.Controllers.Admin
         }
 
         [HttpPost]
-        [Authorize(Policy = Roles.Admin)]
         public IActionResult UpdateNguPhap(int idNguPhap, string tieuDe, string cachDung, string cauTruc, string viDu, string boSung, string luuY, int idChuDe)
         {
             var nguPhap = this._context.NguPhaps.FirstOrDefault(item => item.IdnguPhap == idNguPhap);
