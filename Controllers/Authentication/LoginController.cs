@@ -36,7 +36,7 @@ namespace BEARLINGO.Controllers.Authentication
                 var user = db.NguoiDungs.SingleOrDefault(x => x.Gmail == email && x.MatKhau == password);
                 if (user != null)
                 {
-                    HttpContext.Session.SetString("user", user.IdnguoiDung.ToString());
+                    HttpContext.Session.SetString("User", user.IdnguoiDung.ToString());
                     // Set session
                     // HttpContext.Session.Get("user", user.TenDangNhap);
                     // Redirect to home page

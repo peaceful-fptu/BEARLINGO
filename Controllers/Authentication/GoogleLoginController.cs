@@ -45,7 +45,7 @@ namespace BEARLINGO.Controllers.Authentication
                 }
                 else
                 {
-                    HttpContext.Session.SetInt32("user", user.IdnguoiDung);
+                    HttpContext.Session.SetInt32("User", user.IdnguoiDung);
                     return RedirectToAction("Index", "Home");
                 }
             }

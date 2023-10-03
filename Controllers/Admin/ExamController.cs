@@ -2,6 +2,8 @@
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 using System;
+using Microsoft.AspNetCore.Authorization;
+using static BEARLINGO.Program;
 
 namespace BEARLINGO.Controllers.Admin
 {
@@ -58,7 +60,7 @@ namespace BEARLINGO.Controllers.Admin
                          };
             return result.ToList();
         }
-
+        [Authorize(Policy = Roles.Admin)]
         public Exam CreateExam(int idDeThi)
         {
             Random rand = new Random();

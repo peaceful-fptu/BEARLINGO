@@ -2,15 +2,25 @@ using BEARLINGO.Models;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authentication.Google;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Options;
+using Microsoft.IdentityModel.Tokens;
+using System.Data;
 using System.Security.Claims;
+using System.Text;
 using static Microsoft.EntityFrameworkCore.DbLoggerCategory.Database;
 
 namespace BEARLINGO
 {
     public class Program
     {
+        public static class Roles
+        {
+            public const string Admin = "Admin";
+            public const string User = "User";
+        }
         public static void Main(string[] args)
         {
             var builder = WebApplication.CreateBuilder(args);
@@ -25,6 +35,29 @@ namespace BEARLINGO
                 options.IOTimeout = TimeSpan.FromSeconds(2);
                 options.Cookie.HttpOnly = true;
                 options.Cookie.IsEssential = true;
+            });
+            var configuration = new ConfigurationBuilder()
+                                    .SetBasePath(builder.Environment.ContentRootPath)
+                                    .AddJsonFile("appsettings.json")
+                                    .Build();
+            builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+                .AddJwtBearer(options =>
+                    {
+                        options.TokenValidationParameters = new TokenValidationParameters
+                            {
+                                ValidateIssuer = true,
+                                ValidateAudience = true,
+                                ValidateLifetime = true,
+                                ValidateIssuerSigningKey = true,
+                                ValidIssuer = configuration["Jwt:Issuer"],
+                                ValidAudience = configuration["Jwt:Issuer"],
+                                IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(configuration["Jwt:Key"]))
+                            };
+                    });
+            builder.Services.AddAuthorization(options =>
+            {
+                options.AddPolicy(Roles.Admin, policy => policy.RequireRole(Roles.Admin));
+                options.AddPolicy(Roles.User, policy => policy.RequireRole(Roles.User));
             });
             builder.Services.AddAuthentication(options =>
             {

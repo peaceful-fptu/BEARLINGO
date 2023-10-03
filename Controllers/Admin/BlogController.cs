@@ -1,5 +1,7 @@
 ﻿using BEARLINGO.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using static BEARLINGO.Program;
 
 namespace BEARLINGO.Controllers.Admin
 {
@@ -14,7 +16,7 @@ namespace BEARLINGO.Controllers.Admin
             }
             return View();
         }
-        
+        [Authorize(Policy = Roles.Admin)]
         public IActionResult addBlog() { return View(); }   
 
         [HttpPost]
@@ -38,7 +40,7 @@ namespace BEARLINGO.Controllers.Admin
             }
       
         }
-
+        [Authorize(Policy = Roles.Admin)]
         public IActionResult deleteBlog(int id)
         {
             using (BearlingoContext ctx = new BearlingoContext())
@@ -51,6 +53,7 @@ namespace BEARLINGO.Controllers.Admin
         }
 
         [HttpPost]
+        [Authorize(Policy = Roles.Admin)]
         public IActionResult editBlog(Blog newBlog)
         {
             using (BearlingoContext ctx = new BearlingoContext())

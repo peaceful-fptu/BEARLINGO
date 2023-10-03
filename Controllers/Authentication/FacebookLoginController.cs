@@ -71,7 +71,7 @@ namespace BEARLINGO.Controllers.Authentication
                 }
                 else
                 {
-                    HttpContext.Session.SetString("user", existingUser.IdnguoiDung.ToString());
+                    HttpContext.Session.SetString("User", existingUser.IdnguoiDung.ToString());
                     // Set session
                     // HttpContext.Session.Get("user", user.TenDangNhap);
                     // Redirect to home page

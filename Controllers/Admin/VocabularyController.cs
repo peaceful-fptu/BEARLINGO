@@ -1,5 +1,7 @@
 ﻿using BEARLINGO.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using static BEARLINGO.Program;
 
 namespace BEARLINGO.Controllers.Admin
 {
@@ -73,6 +75,7 @@ namespace BEARLINGO.Controllers.Admin
         }
 
         [HttpPost]
+        [Authorize(Policy = Roles.Admin)]
         public IActionResult AddChuDe(string chuDe, int stt, int idQtv)
         {
             try
@@ -98,6 +101,7 @@ namespace BEARLINGO.Controllers.Admin
         }
 
         [HttpPost]
+        [Authorize(Policy = Roles.Admin)]
         public IActionResult AddTuVung(string tuVung1, string phatAm, string loaiTu, string nghiaTuVung, string viDuTuVung, int idChuDeTuVung)
         {
             try
@@ -126,6 +130,7 @@ namespace BEARLINGO.Controllers.Admin
         }
 
         [HttpGet]
+        [Authorize(Policy = Roles.Admin)]
         public IActionResult DeleteChuDeTuVung(int idChuDeTuVung)
         {
             var chuDeTuVung = this._context.ChuDeTuVungs.FirstOrDefault(item => item.IdchuDeTuVung == idChuDeTuVung);
@@ -164,6 +169,7 @@ namespace BEARLINGO.Controllers.Admin
         }
 
         [HttpGet]
+        [Authorize(Policy = Roles.Admin)]
         public IActionResult DeleteTuVung(int idTuVung, int idChuDeTuVung)
         {
             var tuVung = this._context.TuVungs.FirstOrDefault(item => item.IdtuVung == idTuVung);
@@ -186,6 +192,7 @@ namespace BEARLINGO.Controllers.Admin
         }
 
         [HttpPost]
+        [Authorize(Policy = Roles.Admin)]
         public IActionResult UpdateChuDeTuVung(int idChuDeTuVung, string chuDe, int stt, int idQtv)
         {
             var chuDeTuVung = this._context.ChuDeTuVungs.FirstOrDefault(item => item.IdchuDeTuVung == idChuDeTuVung);
@@ -209,6 +216,7 @@ namespace BEARLINGO.Controllers.Admin
         }
 
         [HttpPost]
+        [Authorize(Policy = Roles.Admin)]
         public IActionResult UpdateTuVung(int idTuVung, string tuVung1, string phatAm, string loaiTu, string nghiaTuVung, string viDuTuVung, int idChuDeTuVung)
         {
             var tuVung = this._context.TuVungs.FirstOrDefault(item => item.IdtuVung == idTuVung);
