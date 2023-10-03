@@ -1,9 +1,7 @@
 ﻿using BEARLINGO.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore.Storage;
-using Microsoft.IdentityModel.Tokens;
-using System;
-using System.Drawing.Printing;
 
 namespace BEARLINGO.Controllers.Admin
 {
@@ -38,6 +36,7 @@ namespace BEARLINGO.Controllers.Admin
         }
 
         [HttpGet]
+
         public IActionResult GrammarDetail(int idNguPhap)
         {
             var listNguPhap = this.GetNguPhap(idNguPhap);
@@ -115,6 +114,7 @@ namespace BEARLINGO.Controllers.Admin
         }
 
         [HttpPost]
+        [Authorize(Policy = Roles.Admin)]
         public IActionResult AddChuDe(string tenNguPhap, int stt, int idQtv)
         {
             try
@@ -139,6 +139,7 @@ namespace BEARLINGO.Controllers.Admin
         }
 
         [HttpPost]
+        [Authorize(Policy = Roles.Admin)]
         public IActionResult AddNguPhap(string tieuDe, string cachDung, string cauTruc, string viDu, string boSung, string luuY, int idChuDe)
         {
             try
@@ -168,6 +169,7 @@ namespace BEARLINGO.Controllers.Admin
         }
 
         [HttpGet]
+        [Authorize(Policy = Roles.Admin)]
         public IActionResult DeleteChuDe(int idChuDe)
         {
             var chuDe = this._context.ChuDeNguPhaps.FirstOrDefault(item => item.IdchuDeNguPhap == idChuDe);
@@ -201,6 +203,7 @@ namespace BEARLINGO.Controllers.Admin
         }
 
         [HttpGet]
+        [Authorize(Policy = Roles.Admin)]
         public IActionResult DeleteNguPhap(int idNguPhap)
         {
             var nguPhap = this._context.NguPhaps.FirstOrDefault(item => item.IdnguPhap == idNguPhap);
@@ -223,6 +226,7 @@ namespace BEARLINGO.Controllers.Admin
         }
 
         [HttpPost]
+        [Authorize(Policy = Roles.Admin)]
         public IActionResult UpdateChuDe(int idChuDe, string tenNguPhap, int stt, int idQtv)
         {
             var chuDe = this._context.ChuDeNguPhaps.FirstOrDefault(item => item.IdchuDeNguPhap == idChuDe);
@@ -246,6 +250,7 @@ namespace BEARLINGO.Controllers.Admin
         }
 
         [HttpPost]
+        [Authorize(Policy = Roles.Admin)]
         public IActionResult UpdateNguPhap(int idNguPhap, string tieuDe, string cachDung, string cauTruc, string viDu, string boSung, string luuY, int idChuDe)
         {
             var nguPhap = this._context.NguPhaps.FirstOrDefault(item => item.IdnguPhap == idNguPhap);
