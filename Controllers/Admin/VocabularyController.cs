@@ -1,6 +1,8 @@
 ﻿using BEARLINGO.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System;
+using static BEARLINGO.Program;
 
 namespace BEARLINGO.Controllers.Admin
 {
@@ -13,6 +15,7 @@ namespace BEARLINGO.Controllers.Admin
             _context = new BearlingoContext();
         }
 
+        [HttpGet]
         public IActionResult Vocabulary(string num)
         {
             int totalPages = 0;
@@ -33,6 +36,7 @@ namespace BEARLINGO.Controllers.Admin
             return View();
         }
 
+        [HttpGet]
         public IActionResult VocabularyDetail(int id)
         {
             var listTuVung = this.GetTuVung(id);
@@ -86,6 +90,7 @@ namespace BEARLINGO.Controllers.Admin
             return new List<TuVung>();
         }
 
+        [Authorize(Policy = Roles.Admin)]
         [HttpPost]
         public IActionResult AddChuDe(string chuDe, int stt, int idQtv)
         {
@@ -111,6 +116,7 @@ namespace BEARLINGO.Controllers.Admin
             return View();
         }
 
+        [Authorize(Policy = Roles.Admin)]
         [HttpPost]
         public IActionResult AddTuVung(string tuVung1, string phatAm, string loaiTu, string nghiaTuVung, string viDuTuVung, int idChuDeTuVung)
         {
@@ -139,6 +145,7 @@ namespace BEARLINGO.Controllers.Admin
             return View();
         }
 
+        [Authorize(Policy = Roles.Admin)]
         [HttpGet]
         public IActionResult DeleteChuDeTuVung(int idChuDeTuVung)
         {
@@ -177,6 +184,7 @@ namespace BEARLINGO.Controllers.Admin
             }
         }
 
+        [Authorize(Policy = Roles.Admin)]
         [HttpGet]
         public IActionResult DeleteTuVung(int idTuVung, int idChuDeTuVung)
         {
@@ -199,6 +207,7 @@ namespace BEARLINGO.Controllers.Admin
             return View();
         }
 
+        [Authorize(Policy = Roles.Admin)]
         [HttpPost]
         public IActionResult UpdateChuDeTuVung(int idChuDeTuVung, string chuDe, int stt, int idQtv)
         {
@@ -222,6 +231,7 @@ namespace BEARLINGO.Controllers.Admin
             return View();
         }
 
+        [Authorize(Policy = Roles.Admin)]
         [HttpPost]
         public IActionResult UpdateTuVung(int idTuVung, string tuVung1, string phatAm, string loaiTu, string nghiaTuVung, string viDuTuVung, int idChuDeTuVung)
         {
