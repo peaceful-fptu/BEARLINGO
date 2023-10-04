@@ -1,4 +1,4 @@
-﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+<Project Sdk="Microsoft.NET.Sdk.Web">
 
   <PropertyGroup>
     <TargetFramework>net6.0</TargetFramework>
@@ -14,6 +14,20 @@
   <ItemGroup>
     <None Include="Views\Authentication\Forgetpass.cshtml" />
     <None Include="Views\Authentication\Signup.cshtml" />
+    <None Include="wwwroot\js\demo\chart-area-demo.js" />
+    <None Include="wwwroot\js\demo\chart-bar-demo.js" />
+    <None Include="wwwroot\js\demo\chart-pie-demo.js" />
+    <None Include="wwwroot\js\demo\datatables-demo.js" />
+    <None Include="wwwroot\scss\navs\_global.scss" />
+    <None Include="wwwroot\scss\navs\_sidebar.scss" />
+    <None Include="wwwroot\scss\navs\_topbar.scss" />
+    <None Include="wwwroot\scss\utilities\_animation.scss" />
+    <None Include="wwwroot\scss\utilities\_background.scss" />
+    <None Include="wwwroot\scss\utilities\_border.scss" />
+    <None Include="wwwroot\scss\utilities\_display.scss" />
+    <None Include="wwwroot\scss\utilities\_progress.scss" />
+    <None Include="wwwroot\scss\utilities\_rotate.scss" />
+    <None Include="wwwroot\scss\utilities\_text.scss" />
   </ItemGroup>
 
   <ItemGroup>
